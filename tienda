@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lista de Productos</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background:#f5f5f5; }
+    h1 { text-align:center; }
+    .card { background:white; padding:15px; border-radius:10px; max-width:400px; margin:10px auto; box-shadow:0 2px 6px rgba(0,0,0,.1); }
+    input, button { width:100%; padding:10px; margin-top:8px; }
+    ul { list-style:none; padding:0; }
+    li { padding:8px; border-bottom:1px solid #ddd; }
+  </style>
+</head>
+<body><h1>🛒 Productos</h1><div class="card">
+  <input type="text" id="search" placeholder="Buscar producto" />
+  <ul id="result"></ul>
+</div><div class="card">
+  <input type="text" id="name" placeholder="Nombre del producto" />
+  <input type="number" id="price" placeholder="Precio" />
+  <button onclick="addOrUpdate()">Agregar / Modificar</button>
+</div><script>
+  let products = {
+    "Manzana": 10,
+    "Pan": 25,
+    "Leche": 30
+  };
+
+  const searchInput = document.getElementById("search");
+  const result = document.getElementById("result");
+
+  searchInput.addEventListener("input", () => {
+    const text = searchInput.value.toLowerCase();
+    result.innerHTML = "";
+    for (let p in products) {
+      if (p.toLowerCase().includes(text)) {
+        result.innerHTML += `<li>${p}: $${products[p]}</li>`;
+      }
+    }
+  });
+
+  function addOrUpdate() {
+    const name = document.getElementById("name").value;
+    const price = document.getElementById("price").value;
+    if (name && price) {
+      products[name] = price;
+      alert("Producto guardado ✨");
+      document.getElementById("name").value = "";
+      document.getElementById("price").value = "";
+    }
+  }
+</script></body>
+</html>
